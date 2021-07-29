@@ -27,7 +27,9 @@ class Product
      * )
      */
     private $name;
-
+    /**
+     * @ORM\ManyToOne(targetEntity="Rack")
+     */
     private $rack;
 
     public function getId(): ?int
