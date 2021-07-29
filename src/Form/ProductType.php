@@ -16,13 +16,10 @@ class ProductType extends AbstractType
         $builder
             ->add('name')
             ->add('rack', EntityType::class, [
-                
                 'class' => Rack::class,
-            
-                'choice_label' => 'name',])
+                'choice_label' => 'name', ])
         ;
     }
-    
 
     public function configureOptions(OptionsResolver $resolver): void
     {
