@@ -53,6 +53,13 @@ services:
       - target: 443
         published: 443
         protocol: udp
+        
+  adminer:
+    image: adminer
+    ports:
+    - 8080:8080
+    depends_on:
+    - database
 
 ###> doctrine/doctrine-bundle ###
   database:
@@ -76,3 +83,4 @@ volumes:
 ###> doctrine/doctrine-bundle ###
   db-data:
 ###< doctrine/doctrine-bundle ###
+

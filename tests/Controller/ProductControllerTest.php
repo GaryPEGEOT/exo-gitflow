@@ -2,10 +2,13 @@
 
 namespace App\Tests;
 
+use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ProductsControllerTest extends WebTestCase
+class ProductControllerTest extends WebTestCase
 {
+    use RefreshDatabaseTrait;
+
     public function testCreate(): void
     {
         $client = static::createClient();
@@ -15,7 +18,7 @@ class ProductsControllerTest extends WebTestCase
         $client->clickLink('Create new');
         $client->submitForm('Save', [
             'product[name]' => 'tata',
-            'product[rack]' => '1',
+            'product[rack]' => static::$fixtures['rack_1']->getId(),
         ]);
         $this->assertResponseRedirects('/products/');
     }

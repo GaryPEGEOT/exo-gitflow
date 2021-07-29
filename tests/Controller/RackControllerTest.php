@@ -2,10 +2,13 @@
 
 namespace App\Tests;
 
+use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class RackControllerTest extends WebTestCase
 {
+    use RefreshDatabaseTrait;
+
     public function testCreate(): void
     {
         $client = static::createClient();
