@@ -5,21 +5,22 @@ namespace App\Tests;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class RackControllerTest extends WebTestCase
+class ProductControllerTest extends WebTestCase
 {
     use RefreshDatabaseTrait;
 
     public function testCreate(): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/racks/');
+        $crawler = $client->request('GET', '/products/');
 
         $this->assertResponseIsSuccessful();
         $client->clickLink('Create new');
         $client->submitForm('Save', [
-            'rack[name]' => 'toto',
+            'product[name]' => 'tata',
+            'product[rack]' => static::$fixtures['rack_1']->getId(),
         ]);
-        $this->assertResponseRedirects('/racks/');
+        $this->assertResponseRedirects('/products/');
     }
 
     /**
@@ -28,14 +29,13 @@ class RackControllerTest extends WebTestCase
     public function testCreateWithInvalidInput(string $name, string $expected): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/racks/');
+        $crawler = $client->request('GET', '/products/');
 
         $this->assertResponseIsSuccessful();
         $client->clickLink('Create new');
-        $client->submitForm('Save', [
-            'rack[name]' => $name,
+        $crawler = $client->submitForm('Save', [
+            'product[name]' => $name,
         ]);
-        $this->assertSelectorTextContains('li', $expected);
     }
 
     public function provideInvalidInput(): array
