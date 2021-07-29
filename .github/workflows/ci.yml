@@ -25,6 +25,10 @@ jobs:
                     esac
                   done
                   exit 1
+            - name: Create database
+              run: docker-compose exec -T -e APP_ENV=test php bin/console d:d:c
+            - name: Run migrations
+              run: docker-compose exec -T -e APP_ENV=test php bin/console d:m:m --no-interaction
             - name: Check HTTP reachability
               run: curl http://localhost
             - name: Check HTTPS reachability
